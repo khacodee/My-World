@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Earth Quality Dropdown Trend</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="earth" id="earth-container">
+            <img id="earth-media" src="images/144.jpg" alt="Earth Image" width="200" />
+        </div>
+
+        <div class="dropdown">
+            <button id="dropdownBtn">144p ▼</button>
+            <div id="dropdownMenu" class="menu hidden">
+                <div onclick="selectQuality('144p')">144p</div>
+                <div onclick="selectQuality('240p')">240p</div>
+                <div onclick="selectQuality('480p')">480p</div>
+                <div onclick="selectQuality('720p')">720p</div>
+                <div onclick="selectQuality('1080p')">1080p</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dropdownBtn = document.getElementById('dropdownBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const earthContainer = document.getElementById('earth-container');
+
+        dropdownBtn.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        function selectQuality(quality) {
+            dropdownBtn.textContent = `${quality} ▼`;
+            dropdownMenu.classList.add('hidden');
+
+            if (quality === '1080p') {
+                earthContainer.innerHTML = `
+        <video id="earth-media" loop controls playsinline width="200">
+            <source src="images/you.mp4" type="video/mp4">
+            Trình duyệt của bạn không hỗ trợ video.
+        </video>
+    `;
+                 setTimeout(() => {
+                    const video = document.getElementById('earth-media');
+                    video.volume = 0.1; // 🔉 âm lượng nhỏ hơn (10%)
+                    video.play();
+                }, 100);
+            } else {
+                const fileName = quality.replace('p', '') + '.jpg';
+                earthContainer.innerHTML = `
+          <img id="earth-media" src="images/${fileName}" alt="Earth ${quality}" width="200">
+        `;
+            }
+        }
+    </script>
+</body>
+
+</html>
